@@ -11,10 +11,11 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <form id="frmusuario">
+        <form id="frmusuario" action="controlador/ValidaUsuario.php" method="post">
             <div><label>Usuario:</label><input id="nomusuario" type="text" name="nomusuario" ></div>
             <div><label>Clave:</label><input id="clave" type="password" name="clave" ></div>
             <input id="enviar" type="button" onclick="" value="Enviar"> 
+            <div id="mensaje"></div>
         </form>
 
     </body>
@@ -24,11 +25,21 @@ and open the template in the editor.
                 /*$("form").hide();
                 alert("Ocultaste el formulario ;-) "+ $("#nomusuario").val());*/
         
-                if ($("#nomusuario").val()!="" && $("#clave").val()!="")
-                    $("#frmusuario").submit();
+                if ($("#nomusuario").val()!="" && $("#clave").val()!=""){
+                    ///*$("#frmusuario").submit();
+                        $.ajax({url:"controlador/ValidaUsuario.php"
+                            ,type:'post'
+                            ,data:{'nomusuario':$("#nomusuario").val(),
+                                'clave':$("#clave").val()
+                                }
+                            ,success:function(resultado){
+                                $("#mensaje").html(resultado);
+                            }
+                        });
+                    }//Cierre IF Valida blancos
                 else
                     alert("Debe Agregar el usuario y clave");
-            });
-     });
+            });//Click Boton enviar
+     });//Function Ready de la página
      </script>
 </html>
